@@ -42,33 +42,4 @@ object Printer {
     def result: String = sb.result
   }
 
-  def printBool(name: String, value: Boolean): String = {
-    if (value) s"$name = true"
-    else s"$name = false"
-  }
-
-  def maybeAppend(opt: Option[Printable], sb: StringBuilder, indent: Int = 2): Unit = {
-    opt match {
-      case Some(p) =>
-        p.printIndented(sb, indent)
-      case _ =>
-    }
-  }
-
-  def maybeAppendSeq(opt: Option[Seq[Printable]], sb: StringBuilder, indent: Int = 2): Unit = {
-    opt match {
-      case Some(s) =>
-        s.foreach(_.printIndented(sb, indent))
-      case _ =>
-    }
-  }
-
-  def appendSeq(s: Seq[Printable], sb: StringBuilder, indent: Int = 2): Unit = {
-    s.foreach{_.printIndented(sb, indent)}
-  }
-
-  def append(p: Printable, sb: StringBuilder, indent: Int = 2): Unit = {
-    p.printIndented(sb, indent)
-  }
-
 }

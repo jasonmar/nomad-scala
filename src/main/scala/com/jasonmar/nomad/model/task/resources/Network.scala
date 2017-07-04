@@ -12,12 +12,12 @@ import com.jasonmar.hcl.parameter.IntParam
   */
 case class Network(mbits: Option[Int], port: Option[PortAllocation]) extends Stanza {
   override def printHCL = {
-    val sb = new StringBuilder()
-    sb.append(s"$stanza {\n")
-    maybeAppend(mbits.map(IntParam("mbits", _)), sb)
-    maybeAppend(port, sb)
-    sb.append("}")
-    sb.result
+    val hcl = new HCLBuilder()
+    hcl.open(stanza)
+    hcl.maybeAppend(mbits.map(IntParam("mbits", _)))
+    hcl.maybeAppend(port)
+    hcl.close()
+    hcl.result
   }
 }
 

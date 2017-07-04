@@ -1,12 +1,11 @@
 package com.jasonmar.nomad.model.task.artifact
 
-import Options.ArtifactOption
-import Sources.Source
 import com.jasonmar.hcl.Printer._
 import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.StringParam
+import com.jasonmar.nomad.model.task.artifact.Options.ArtifactOption
+import com.jasonmar.nomad.model.task.artifact.Sources.Source
 import com.jasonmar.nomad.model.task.template.RelativePath
-
 
 /**
   *
@@ -20,12 +19,12 @@ case class Artifact(
   source: Source
 ) extends Stanza {
   override def printHCL: String = {
-    val sb = new StringBuilder()
-    sb.append(s"$stanza {\n")
-    append(StringParam("destination", destination.value), sb)
-    append(ArtifactOptions(options), sb)
-    append(source, sb)
-    sb.append("}")
-    sb.result
+    val hcl = new HCLBuilder()
+    hcl.open(stanza)
+    hcl.append(StringParam("destination", destination.value))
+    hcl.append(ArtifactOptions(options))
+    hcl.append(source)
+    hcl.close()
+    hcl.result
   }
 }

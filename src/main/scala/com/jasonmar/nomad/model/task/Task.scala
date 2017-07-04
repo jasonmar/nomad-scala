@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.task
 
-import com.jasonmar.hcl._
 import com.jasonmar.hcl.Printer._
+import com.jasonmar.hcl._
 import com.jasonmar.hcl.parameter.{BoolParam, StringParam}
 import com.jasonmar.nomad.model.common.Durations.Duration
 import com.jasonmar.nomad.model.common.{KVPair, Meta}
@@ -10,8 +10,8 @@ import com.jasonmar.nomad.model.service.{Service, User}
 import com.jasonmar.nomad.model.task.artifact.Artifact
 import com.jasonmar.nomad.model.task.driver.Configs.DriverConfig
 import com.jasonmar.nomad.model.task.driver.Drivers.Driver
-import com.jasonmar.nomad.model.task.template.Templates.Template
 import com.jasonmar.nomad.model.task.resources.Resources
+import com.jasonmar.nomad.model.task.template.Templates.Template
 import com.jasonmar.nomad.model.vault.Vault
 
 /** The `task` stanza creates an individual unit of work, such as a Docker

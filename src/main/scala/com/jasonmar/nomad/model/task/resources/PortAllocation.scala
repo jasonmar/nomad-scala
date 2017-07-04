@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.task.resources
 
-import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.Printer._
+import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.IntParam
 
 /** Specifies a TCP/UDP port
@@ -22,12 +22,11 @@ case class PortAllocation(label: String, static: Option[Int]) extends Stanza {
   override val stanza: String = "port"
 
   override def printHCL: String = {
-    val sb = new StringBuilder()
-    sb.append(s"""$stanza "$label" {""")
-    sb.append("\n")
-    maybeAppend(static.map(IntParam("static", _)), sb)
-    sb.append("}")
-    sb.result
+    val hcl = new HCLBuilder()
+    hcl.open(stanza, label)
+    hcl.maybeAppend(static.map(IntParam("static", _)))
+    hcl.close()
+    hcl.result
   }
 }
 

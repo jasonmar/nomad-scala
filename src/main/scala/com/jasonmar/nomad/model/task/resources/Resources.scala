@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.task.resources
 
-import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.Printer._
+import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.IntParam
 
 
@@ -36,13 +36,13 @@ case class Resources(
   }
 
   override def printHCL: String = {
-    val sb = new StringBuilder()
-    sb.append(s"$stanza {\n")
-    maybeAppend(cpu.map(IntParam("cpu",_)), sb)
-    maybeAppend(iops.map(IntParam("iops",_)), sb)
-    maybeAppend(memory.map(IntParam("memory",_)), sb)
-    maybeAppend(network, sb)
-    sb.append("}")
-    sb.result
+    val hcl = new HCLBuilder()
+    hcl.open(stanza)
+    hcl.maybeAppend(cpu.map(IntParam("cpu",_)))
+    hcl.maybeAppend(iops.map(IntParam("iops",_)))
+    hcl.maybeAppend(memory.map(IntParam("memory",_)))
+    hcl.maybeAppend(network)
+    hcl.close()
+    hcl.result
   }
 }

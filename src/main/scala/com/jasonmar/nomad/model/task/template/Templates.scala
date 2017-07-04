@@ -1,12 +1,12 @@
 package com.jasonmar.nomad.model.task.template
 
+import com.jasonmar.hcl.Printer._
+import com.jasonmar.hcl.Stanza
+import com.jasonmar.hcl.parameter.{BoolParam, StringParam}
 import com.jasonmar.nomad.model.common.Durations.Duration
 import com.jasonmar.nomad.model.common.NonEmptyValue
-import ChangeModes.{ChangeMode, Signal}
-import ChangeSignals.ChangeSignal
-import com.jasonmar.hcl.Printer._
-import com.jasonmar.hcl.parameter.{BoolParam, StringParam}
-import com.jasonmar.hcl.Stanza
+import com.jasonmar.nomad.model.task.template.ChangeModes.{ChangeMode, Signal}
+import com.jasonmar.nomad.model.task.template.ChangeSignals.ChangeSignal
 
 object Templates{
 
@@ -81,19 +81,19 @@ object Templates{
     splay: Option[Duration] = None
   ) extends Template {
     override def printHCL: String = {
-      val sb = new StringBuilder()
-      sb.append(s"$stanza {")
-      append(StringParam("source", source.value), sb)
-      append(StringParam("destination", destination.value), sb)
-      maybeAppend(change_mode, sb)
-      maybeAppend(change_signal, sb)
-      maybeAppend(env.map(BoolParam("env", _)), sb)
-      maybeAppend(left_delimiter.map(StringParam("left_delimiter", _)), sb)
-      maybeAppend(perms.map(p => StringParam("perms", p.value)), sb)
-      maybeAppend(right_delimiter.map(StringParam("right_delimiter", _)), sb)
-      maybeAppend(splay.map(p => StringParam("splay", p.value)), sb)
-      sb.append("}")
-      sb.result
+      val hcl = new HCLBuilder()
+      hcl.open(stanza)
+      hcl.append(StringParam("source", source.value))
+      hcl.append(StringParam("destination", destination.value))
+      hcl.maybeAppend(change_mode)
+      hcl.maybeAppend(change_signal)
+      hcl.maybeAppend(env.map(BoolParam("env", _)))
+      hcl.maybeAppend(left_delimiter.map(StringParam("left_delimiter", _)))
+      hcl.maybeAppend(perms.map(p => StringParam("perms", p.value)))
+      hcl.maybeAppend(right_delimiter.map(StringParam("right_delimiter", _)))
+      hcl.maybeAppend(splay.map(p => StringParam("splay", p.value)))
+      hcl.close()
+      hcl.result
     }
   }
 
@@ -145,19 +145,19 @@ object Templates{
     splay: Option[Duration] = None
   ) extends Template {
     override def printHCL: String = {
-      val sb = new StringBuilder()
-      sb.append(s"$stanza {")
-      append(StringParam("data", data.value), sb)
-      append(StringParam("destination", destination.value), sb)
-      maybeAppend(change_mode, sb)
-      maybeAppend(change_signal, sb)
-      maybeAppend(env.map(BoolParam("env", _)), sb)
-      maybeAppend(left_delimiter.map(StringParam("left_delimiter", _)), sb)
-      maybeAppend(perms.map(p => StringParam("perms", p.value)), sb)
-      maybeAppend(right_delimiter.map(StringParam("right_delimiter", _)), sb)
-      maybeAppend(splay.map(p => StringParam("splay", p.value)), sb)
-      sb.append("}")
-      sb.result
+      val hcl = new HCLBuilder()
+      hcl.open(stanza)
+      hcl.append(StringParam("data", data.value))
+      hcl.append(StringParam("destination", destination.value))
+      hcl.maybeAppend(change_mode)
+      hcl.maybeAppend(change_signal)
+      hcl.maybeAppend(env.map(BoolParam("env", _)))
+      hcl.maybeAppend(left_delimiter.map(StringParam("left_delimiter", _)))
+      hcl.maybeAppend(perms.map(p => StringParam("perms", p.value)))
+      hcl.maybeAppend(right_delimiter.map(StringParam("right_delimiter", _)))
+      hcl.maybeAppend(splay.map(p => StringParam("splay", p.value)))
+      hcl.close()
+      hcl.result
     }
   }
 

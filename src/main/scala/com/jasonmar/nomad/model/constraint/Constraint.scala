@@ -1,8 +1,8 @@
 package com.jasonmar.nomad.model.constraint
 
 import com.jasonmar.hcl.Stanza
-import com.jasonmar.nomad.model.constraint.ValueTypes.Value
 import com.jasonmar.nomad.model.constraint.Operators.Operator
+import com.jasonmar.nomad.model.constraint.ValueTypes.Value
 
 /**
   *

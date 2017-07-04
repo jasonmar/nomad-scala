@@ -3,12 +3,11 @@ package com.jasonmar.nomad.model.service
 import com.jasonmar.hcl.Printer._
 import com.jasonmar.hcl._
 import com.jasonmar.hcl.parameter.{BoolParam, StringParam}
+import com.jasonmar.nomad.model.common.Args
 import com.jasonmar.nomad.model.common.Durations.Duration
-import com.jasonmar.nomad.model.common.{Args, Meta}
 import com.jasonmar.nomad.model.service.CheckTypes.{CheckType, HTTP, Script, TCP}
 import com.jasonmar.nomad.model.service.Protocols.Protocol
 import com.jasonmar.nomad.model.service.Statuses.Status
-import com.jasonmar.nomad.model.task.Env
 
 object Checks {
 
@@ -54,15 +53,15 @@ object Checks {
     override val checkType: CheckType = Script
 
     override def printHCL: String = {
-      val sb = new StringBuilder()
-      sb.append(s"$stanza {")
-      append(StringParam("command", command), sb)
-      append(Args(args), sb)
-      append(initialStatus, sb)
-      append(StringParam("interval", interval.value), sb)
-      append(StringParam("timeout", timeout.value), sb)
-      sb.append("}")
-      sb.result
+      val hcl = new HCLBuilder()
+      hcl.open(stanza)
+      hcl.append(StringParam("command", command))
+      hcl.append(Args(args))
+      hcl.append(initialStatus)
+      hcl.append(StringParam("interval", interval.value))
+      hcl.append(StringParam("timeout", timeout.value))
+      hcl.close()
+      hcl.result
     }
   }
 
@@ -94,14 +93,14 @@ object Checks {
     override val checkType: CheckType = TCP
 
     override def printHCL: String = {
-      val sb = new StringBuilder()
-      sb.append(s"$stanza {")
-      append(port, sb)
-      append(initialStatus, sb)
-      append(StringParam("interval", interval.value), sb)
-      append(StringParam("timeout", timeout.value), sb)
-      sb.append("}")
-      sb.result
+      val hcl = new HCLBuilder()
+      hcl.open(stanza)
+      hcl.append(port)
+      hcl.append(initialStatus)
+      hcl.append(StringParam("interval", interval.value))
+      hcl.append(StringParam("timeout", timeout.value))
+      hcl.close()
+      hcl.result
     }
   }
 
@@ -149,17 +148,17 @@ object Checks {
     }
 
     override def printHCL: String = {
-      val sb = new StringBuilder()
-      sb.append(s"$stanza {")
-      append(StringParam("path", path), sb)
-      append(port, sb)
-      append(initialStatus, sb)
-      append(StringParam("interval", interval.value), sb)
-      append(StringParam("timeout", timeout.value), sb)
-      maybeAppend(protocol, sb)
-      maybeAppend(tlsSkipVerify.map(BoolParam("tls_skip_verify", _)), sb)
-      sb.append("}")
-      sb.result
+      val hcl = new HCLBuilder()
+      hcl.open(stanza)
+      hcl.append(StringParam("path", path))
+      hcl.append(port)
+      hcl.append(initialStatus)
+      hcl.append(StringParam("interval", interval.value))
+      hcl.append(StringParam("timeout", timeout.value))
+      hcl.maybeAppend(protocol)
+      hcl.maybeAppend(tlsSkipVerify.map(BoolParam("tls_skip_verify", _)))
+      hcl.close()
+      hcl.result
     }
   }
 

@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.task
 
-import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.Printer._
+import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.StringParam
 
 /**
@@ -12,10 +12,10 @@ case class DispatchPayload(file: String) extends Stanza {
   override val stanza: String = "dispatch_payload"
 
   override def printHCL: String = {
-    val sb = new StringBuilder()
-    sb.append(s"$stanza {\n")
-    append(StringParam("file", file), sb)
-    sb.append("}")
-    sb.result
+    val hcl = new HCLBuilder()
+    hcl.open(stanza)
+    hcl.append(StringParam("file", file))
+    hcl.close()
+    hcl.result
   }
 }

@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.task
 
-import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.Printer._
+import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.IntParam
 
 /**
@@ -19,11 +19,11 @@ case class Logs(maxFiles: Int, maxFileSize: Int) extends Stanza {
   require(maxFileSize > 0)
 
   override def printHCL: String = {
-    val sb = new StringBuilder()
-    sb.append(s"$stanza {\n")
-    append(IntParam("max_files", maxFiles), sb)
-    append(IntParam("max_file_size", maxFileSize), sb)
-    sb.append("}")
-    sb.result
+    val hcl = new HCLBuilder()
+    hcl.open(stanza)
+    hcl.append(IntParam("max_files", maxFiles))
+    hcl.append(IntParam("max_file_size", maxFileSize))
+    hcl.close()
+    hcl.result
   }
 }

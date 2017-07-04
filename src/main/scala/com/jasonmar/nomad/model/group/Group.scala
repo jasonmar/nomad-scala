@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.group
 
-import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.Printer._
+import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.IntParam
 import com.jasonmar.nomad.model.common.{KVPair, Meta}
 import com.jasonmar.nomad.model.constraint.Constraint
@@ -39,17 +39,16 @@ case class Group(
   }
   require(tasks.nonEmpty)
   override def printHCL: String = {
-    val sb = new StringBuilder()
-    sb.append(s"""group "$name" {""")
-    sb.append("\n")
-    appendSeq(tasks, sb)
-    constraints.foreach(appendSeq(_, sb))
-    maybeAppend(count.map(IntParam("count",_)), sb)
-    maybeAppend(ephemeralDisk, sb)
-    maybeAppend(meta.map(Meta), sb)
-    maybeAppend(restart, sb)
-    maybeAppend(vault, sb)
-    sb.append("}")
-    sb.result
+    val hcl = new HCLBuilder()
+    hcl.open(stanza, name)
+    hcl.appendSeq(tasks)
+    hcl.maybeAppendSeq(constraints)
+    hcl.maybeAppend(count.map(IntParam("count",_)))
+    hcl.maybeAppend(ephemeralDisk)
+    hcl.maybeAppend(meta.map(Meta))
+    hcl.maybeAppend(restart)
+    hcl.maybeAppend(vault)
+    hcl.close()
+    hcl.result
   }
 }
