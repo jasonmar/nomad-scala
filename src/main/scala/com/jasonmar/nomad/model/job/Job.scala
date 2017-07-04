@@ -1,6 +1,6 @@
 package com.jasonmar.nomad.model.job
 
-import com.jasonmar.hcl.Printer._
+import com.jasonmar.hcl.HCLBuilder
 import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.{BoolParam, SeqParam}
 import com.jasonmar.nomad.model.common.{KVPair, Meta}

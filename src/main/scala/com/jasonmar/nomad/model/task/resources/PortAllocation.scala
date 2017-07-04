@@ -1,6 +1,6 @@
 package com.jasonmar.nomad.model.task.resources
 
-import com.jasonmar.hcl.Printer._
+import com.jasonmar.hcl.HCLBuilder
 import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.IntParam
 

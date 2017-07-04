@@ -1,6 +1,6 @@
 package com.jasonmar.nomad.model.task.driver
 
-import com.jasonmar.hcl.Printer.HCLBuilder
+import com.jasonmar.hcl.HCLBuilder
 import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.StringParam
 import com.jasonmar.nomad.model.common.{Args, KVPair}
