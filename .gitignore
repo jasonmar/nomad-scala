@@ -1,0 +1,7 @@
+*.sc
+*.ipr
+*.iws
+target/
+.idea/
+*.log
+*.gz
