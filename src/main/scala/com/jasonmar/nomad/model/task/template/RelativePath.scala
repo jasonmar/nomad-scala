@@ -1,6 +1,6 @@
 package com.jasonmar.nomad.model.task.template
 
-import com.jasonmar.nomad.model.common.NonEmptyValue
+import com.jasonmar.hcl.NonEmptyValue
 
 /**
   *

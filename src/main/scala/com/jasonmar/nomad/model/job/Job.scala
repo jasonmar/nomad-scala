@@ -5,7 +5,7 @@ import com.jasonmar.hcl.Stanza
 import com.jasonmar.hcl.parameter.{BoolParam, SeqParam}
 import com.jasonmar.nomad.model.common.{KVPair, Meta}
 import com.jasonmar.nomad.model.constraint.Constraint
-import com.jasonmar.nomad.model.group.{Group, Periodic, Priority, Region}
+import com.jasonmar.nomad.model.group.{Group, Periodic, Region}
 import com.jasonmar.nomad.model.job.JobTypes.JobType
 import com.jasonmar.nomad.model.vault.{Token, Vault}
 

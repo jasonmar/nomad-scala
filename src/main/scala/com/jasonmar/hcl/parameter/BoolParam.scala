@@ -1,13 +1,8 @@
 package com.jasonmar.hcl.parameter
 
-import com.jasonmar.hcl.Parameter
+import com.jasonmar.hcl.UnquotedParameter
 
-case class BoolParam(name: String, b: Boolean) extends Parameter {
+case class BoolParam(name: String, boolValue: Boolean) extends UnquotedParameter {
   override val parameterName: String = name
-  override val value: String = if (b) "true" else "false"
-
-  override def printHCL: String = {
-    if (b) s"$parameterName = true"
-    else s"$parameterName = false"
-  }
+  override val value: String = if (boolValue) "true" else "false"
 }

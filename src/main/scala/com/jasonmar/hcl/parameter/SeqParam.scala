@@ -1,7 +1,6 @@
 package com.jasonmar.hcl.parameter
 
-import com.jasonmar.hcl.Parameter
-import com.jasonmar.nomad.model.common.NonEmptyValue
+import com.jasonmar.hcl.{NonEmptyValue, Parameter}
 
 case class SeqParam(name: String, s: Seq[NonEmptyValue]) extends Parameter {
   override val parameterName: String = name

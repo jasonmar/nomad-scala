@@ -3,7 +3,9 @@ package com.jasonmar.nomad.model.group
 import com.jasonmar.hcl.Parameter
 
 object RestartModes {
-  sealed trait RestartMode extends Parameter
+  sealed trait RestartMode extends Parameter {
+    override val parameterName: String = "mode"
+  }
 
   /**
     * Instructs the scheduler to delay the next restart until the next `interval` is reached. This is the default behavior.

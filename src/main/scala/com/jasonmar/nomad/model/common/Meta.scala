@@ -1,15 +1,13 @@
 package com.jasonmar.nomad.model.common
 
-import com.jasonmar.hcl.Stanza
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 
 case class Meta(values: Seq[KVPair]) extends Stanza {
-  override def printHCL = {
-    val sb = new StringBuilder()
-    sb.append(s"$stanza {\n")
-    values.foreach{kv =>
-      kv.printIndented(sb)
-    }
-    sb.append("\n")
-    sb.result
+  override def printHCL: String = {
+    val hcl = new HCLBuilder()
+    hcl.open(stanza)
+    hcl.appendSeq(values)
+    hcl.close()
+    hcl.result
   }
 }

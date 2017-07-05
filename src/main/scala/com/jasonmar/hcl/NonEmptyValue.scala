@@ -1,4 +1,4 @@
-package com.jasonmar.nomad.model.common
+package com.jasonmar.hcl
 
 trait NonEmptyValue {
   val value: String

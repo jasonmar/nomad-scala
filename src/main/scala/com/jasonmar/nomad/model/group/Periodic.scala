@@ -1,6 +1,7 @@
 package com.jasonmar.nomad.model.group
 
-import com.jasonmar.hcl.Stanza
+import com.jasonmar.hcl.parameter.BoolParam
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 
 /** The `periodic` stanza allows a job to run at fixed times, dates, or intervals.
   * The easiest way to think about the periodic scheduler is "Nomad cron" or
@@ -16,20 +17,12 @@ case class Periodic(
   time_zone: Option[TimeZone] = None
 ) extends Stanza {
   override def printHCL: String = {
-    val sb = new StringBuilder()
-    sb.append(s"$stanza {\n")
-    sb.append(s"  ${cron.printHCL}\n")
-    prohibit_overlap match {
-      case Some(b) if b =>
-        sb.append("  prohibit_overlap = true\n")
-      case _ =>
-    }
-    time_zone match {
-      case Some(tz) =>
-        sb.append(s"""  ${tz.printHCL}\n""")
-      case _ =>
-    }
-    sb.append("}")
-    sb.result
+    val hcl = new HCLBuilder()
+    hcl.open(stanza)
+    hcl.append(cron)
+    hcl.maybeAppend(prohibit_overlap.map(BoolParam("prohibit_overlap", _)))
+    hcl.maybeAppend(time_zone)
+    hcl.close()
+    hcl.result
   }
 }

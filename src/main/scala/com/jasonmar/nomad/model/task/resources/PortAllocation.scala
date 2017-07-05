@@ -18,7 +18,7 @@ import com.jasonmar.hcl.parameter.IntParam
   * @param static `(int: nil)` - Specifies the static TCP/UDP port to allocate. If omitted, a dynamic port is chosen. We **do not recommend**  using static ports, except
   *               for `system` or specialized jobs like load balancers.
   */
-case class PortAllocation(label: String, static: Option[Int]) extends Stanza {
+case class PortAllocation(label: String, static: Option[Int] = None) extends Stanza {
   override val stanza: String = "port"
 
   override def printHCL: String = {

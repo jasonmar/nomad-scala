@@ -1,6 +1,6 @@
 package com.jasonmar.nomad.model.task.driver
 
-import com.jasonmar.hcl.{HCLBuilder, Parameter, Stanza}
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 import com.jasonmar.hcl.parameter.StringParam
 import com.jasonmar.nomad.model.common.{Args, KVPair}
 import com.jasonmar.nomad.model.task.template.{LocalPath, RelativePath}
