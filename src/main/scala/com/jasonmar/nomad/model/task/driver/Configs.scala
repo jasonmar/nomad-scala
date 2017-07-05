@@ -1,7 +1,6 @@
 package com.jasonmar.nomad.model.task.driver
 
-import com.jasonmar.hcl.HCLBuilder
-import com.jasonmar.hcl.Stanza
+import com.jasonmar.hcl.{HCLBuilder, Parameter, Stanza}
 import com.jasonmar.hcl.parameter.StringParam
 import com.jasonmar.nomad.model.common.{Args, KVPair}
 import com.jasonmar.nomad.model.task.template.{LocalPath, RelativePath}
@@ -27,7 +26,12 @@ object Configs {
     args: Option[Seq[String]]
   ) extends DriverConfig {
     override def printHCL: String = {
-      ""
+      val hcl = new HCLBuilder()
+      hcl.open(stanza)
+      hcl.append(StringParam("command", command))
+      hcl.maybeAppend(args.map(Args))
+      hcl.close()
+      hcl.result
     }
   }
 
@@ -57,7 +61,15 @@ object Configs {
     jvmOptions: Option[Seq[String]]
   ) extends DriverConfig {
     override def printHCL: String = {
-      ""
+      val hcl = new HCLBuilder()
+      hcl.open(stanza)
+      hcl.maybeAppend(mainClass.map(StringParam("main_class", _)))
+      hcl.maybeAppend(classPath.map(StringParam("class_path", _)))
+      hcl.maybeAppend(jarPath.map(p => StringParam("jar_path", p.value)))
+      hcl.maybeAppend(args.map(Args))
+      hcl.maybeAppend(jvmOptions.map(JVMOptions))
+      hcl.close()
+      hcl.result
     }
   }
 
