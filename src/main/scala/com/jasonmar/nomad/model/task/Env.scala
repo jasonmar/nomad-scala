@@ -1,7 +1,6 @@
 package com.jasonmar.nomad.model.task
 
-import com.jasonmar.hcl.HCLBuilder
-import com.jasonmar.hcl.Stanza
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 
 case class Env(envvars: Seq[EnvVar]) extends Stanza {
   override def printHCL: String = {

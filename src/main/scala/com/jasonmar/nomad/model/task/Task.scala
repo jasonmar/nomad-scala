@@ -1,7 +1,6 @@
 package com.jasonmar.nomad.model.task
 
-import com.jasonmar.hcl.HCLBuilder
-import com.jasonmar.hcl._
+import com.jasonmar.hcl.{HCLBuilder, _}
 import com.jasonmar.hcl.parameter.{BoolParam, StringParam}
 import com.jasonmar.nomad.model.common.Durations.Duration
 import com.jasonmar.nomad.model.common.{KVPair, Meta}

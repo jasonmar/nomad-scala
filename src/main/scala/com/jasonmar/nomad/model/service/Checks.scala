@@ -1,7 +1,6 @@
 package com.jasonmar.nomad.model.service
 
-import com.jasonmar.hcl.HCLBuilder
-import com.jasonmar.hcl._
+import com.jasonmar.hcl.{HCLBuilder, _}
 import com.jasonmar.hcl.parameter.{BoolParam, StringParam}
 import com.jasonmar.nomad.model.common.Args
 import com.jasonmar.nomad.model.common.Durations.Duration
@@ -85,10 +84,10 @@ object Checks {
   "30s" or "1h". This must be greater than or equal to "1s"
     */
   case class TcpCheck(
-    port: Port,
-    initialStatus: Status,
-    interval: Duration,
-    timeout: Duration
+                       port: PortLabel,
+                       initialStatus: Status,
+                       interval: Duration,
+                       timeout: Duration
   ) extends Check {
     override val checkType: CheckType = TCP
 
@@ -132,13 +131,13 @@ object Checks {
   checks. Requires Consul >= 0.7.2.
     */
   case class HttpCheck (
-    path: String,
-    port: Port,
-    initialStatus: Status,
-    interval: Duration,
-    timeout: Duration,
-    protocol: Option[Protocol] = None,
-    tlsSkipVerify: Option[Boolean] = None
+                         path: String,
+                         port: PortLabel,
+                         initialStatus: Status,
+                         interval: Duration,
+                         timeout: Duration,
+                         protocol: Option[Protocol] = None,
+                         tlsSkipVerify: Option[Boolean] = None
   ) extends Check {
     override val checkType: CheckType = HTTP
     tlsSkipVerify match {

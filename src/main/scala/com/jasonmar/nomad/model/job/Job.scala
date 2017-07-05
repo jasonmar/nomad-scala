@@ -1,7 +1,6 @@
 package com.jasonmar.nomad.model.job
 
-import com.jasonmar.hcl.HCLBuilder
-import com.jasonmar.hcl.Stanza
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 import com.jasonmar.hcl.parameter.{BoolParam, SeqParam}
 import com.jasonmar.nomad.model.common.{KVPair, Meta}
 import com.jasonmar.nomad.model.constraint.Constraint

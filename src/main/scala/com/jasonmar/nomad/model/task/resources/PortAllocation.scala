@@ -1,8 +1,8 @@
 package com.jasonmar.nomad.model.task.resources
 
-import com.jasonmar.hcl.HCLBuilder
-import com.jasonmar.hcl.Stanza
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 import com.jasonmar.hcl.parameter.IntParam
+import com.jasonmar.nomad.model.service.PortLabel
 
 /** Specifies a TCP/UDP port
   * allocation and can be used to specify both dynamic ports and reserved ports.
@@ -20,6 +20,8 @@ import com.jasonmar.hcl.parameter.IntParam
   */
 case class PortAllocation(label: String, static: Option[Int] = None) extends Stanza {
   override val stanza: String = "port"
+
+  def port: PortLabel = PortLabel(label)
 
   override def printHCL: String = {
     val hcl = new HCLBuilder()

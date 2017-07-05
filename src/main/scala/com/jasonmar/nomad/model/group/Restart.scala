@@ -1,6 +1,6 @@
 package com.jasonmar.nomad.model.group
 
-import com.jasonmar.hcl.parameter.{BoolParam, IntParam, StringParam}
+import com.jasonmar.hcl.parameter.{IntParam, StringParam}
 import com.jasonmar.hcl.{HCLBuilder, Stanza}
 import com.jasonmar.nomad.model.common.Durations.Duration
 import com.jasonmar.nomad.model.group.RestartModes.RestartMode

@@ -1,7 +1,6 @@
 package com.jasonmar.nomad.model.task.resources
 
-import com.jasonmar.hcl.HCLBuilder
-import com.jasonmar.hcl.Stanza
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 import com.jasonmar.hcl.parameter.IntParam
 
 
@@ -10,7 +9,7 @@ import com.jasonmar.hcl.parameter.IntParam
   * @param mbits `(int: 10)` - Specifies the bandwidth required in MBits.
   * @param port Specifies a TCP/UDP port allocation and can be used to specify both dynamic ports and reserved ports.
   */
-case class Network(mbits: Option[Int], port: Option[Seq[PortAllocation]]) extends Stanza {
+case class Network(mbits: Option[Int] = None, port: Option[Seq[PortAllocation]] = None) extends Stanza {
   override def printHCL = {
     val hcl = new HCLBuilder()
     hcl.open(stanza)

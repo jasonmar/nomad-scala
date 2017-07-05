@@ -1,7 +1,6 @@
 package com.jasonmar.nomad.model.service
 
-import com.jasonmar.hcl.HCLBuilder
-import com.jasonmar.hcl._
+import com.jasonmar.hcl.{HCLBuilder, _}
 import com.jasonmar.hcl.parameter.{SeqParam, StringParam}
 import com.jasonmar.nomad.model.service.Checks.Check
 
@@ -26,10 +25,10 @@ import com.jasonmar.nomad.model.service.Checks.Check
   * @param tags   Specifies the list of tags to associate with this service. If this is not supplied, no tags will be assigned to the service when it is registered.
   */
 case class Service(
-  name: Option[String],
-  checks: Seq[Check],
-  port: Port,
-  tags: Seq[Tag]
+                    name: Option[String],
+                    checks: Seq[Check],
+                    port: PortLabel,
+                    tags: Seq[Tag]
 ) extends Stanza {
   override def printHCL: String = {
     val hcl = new HCLBuilder()
