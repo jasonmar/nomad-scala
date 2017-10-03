@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.task.template
 
 import com.jasonmar.hcl.parameter.{BoolParam, StringParam}
-import com.jasonmar.hcl.{HCLBuilder, NonEmptyValue, Stanza}
+import com.jasonmar.hcl.{HCLBuilder, HCLValue, Stanza}
 import com.jasonmar.nomad.model.common.Durations.Duration
 import com.jasonmar.nomad.model.task.template.ChangeModes.{ChangeMode, Signal}
 import com.jasonmar.nomad.model.task.template.ChangeSignals.ChangeSignal
@@ -95,7 +95,7 @@ object Templates{
     }
   }
 
-  case class RawTemplate(value: String) extends NonEmptyValue
+  case class RawTemplate(value: String) extends HCLValue
 
   /**
     *

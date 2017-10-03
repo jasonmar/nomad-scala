@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.group
 
-import com.jasonmar.hcl.{HCLBuilder, Stanza}
 import com.jasonmar.hcl.parameter.IntParam
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 import com.jasonmar.nomad.model.common.{KVPair, Meta}
 import com.jasonmar.nomad.model.constraint.Constraint
 import com.jasonmar.nomad.model.task.Task

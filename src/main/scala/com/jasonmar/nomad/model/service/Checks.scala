@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.service
 
-import com.jasonmar.hcl.{HCLBuilder, _}
 import com.jasonmar.hcl.parameter.{BoolParam, StringParam}
+import com.jasonmar.hcl.{HCLBuilder, _}
 import com.jasonmar.nomad.model.common.Args
 import com.jasonmar.nomad.model.common.Durations.Duration
 import com.jasonmar.nomad.model.service.CheckTypes.{CheckType, HTTP, Script, TCP}

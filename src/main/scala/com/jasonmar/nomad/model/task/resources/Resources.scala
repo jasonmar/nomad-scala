@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.task.resources
 
-import com.jasonmar.hcl.{HCLBuilder, Stanza}
 import com.jasonmar.hcl.parameter.IntParam
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 
 
 /**

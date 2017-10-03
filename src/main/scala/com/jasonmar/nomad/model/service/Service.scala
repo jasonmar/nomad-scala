@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.service
 
-import com.jasonmar.hcl.{HCLBuilder, _}
 import com.jasonmar.hcl.parameter.{SeqParam, StringParam}
+import com.jasonmar.hcl.{HCLBuilder, _}
 import com.jasonmar.nomad.model.service.Checks.Check
 
 /**

@@ -1,5 +1,5 @@
 package com.jasonmar.nomad.model.service
 
-import com.jasonmar.hcl.NonEmptyValue
+import com.jasonmar.hcl.HCLValue
 
-case class Tag(value: String) extends NonEmptyValue
+case class Tag(value: String) extends HCLValue

@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.task.resources
 
-import com.jasonmar.hcl.{HCLBuilder, Stanza}
 import com.jasonmar.hcl.parameter.IntParam
+import com.jasonmar.hcl.{HCLBuilder, Stanza}
 
 
 /** The "network" stanza specifies the networking requirements for the task, including the minimum bandwidth and port allocations.

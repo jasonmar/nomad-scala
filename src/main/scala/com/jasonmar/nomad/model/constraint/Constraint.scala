@@ -9,10 +9,10 @@ import com.jasonmar.nomad.model.constraint.Operators.Operator
   * @param value Specifies the value to compare the attribute against using the specified operation. This can be a literal value, another attribute, or any [Nomad interpolated values](/docs/runtime/interpolation.html#interpreted_node_vars).
   * @param attribute Specifies the name or reference of the attribute to examine for the constraint. This can be any of the [Nomad interpolated values](/docs/runtime/interpolation.html#interpreted_node_vars).
   *  Example: only run on aws m4.xlarge nodes
-  *    attribute = "${attr.platform.aws.instance-type}"
+  *    attribute = "\$\{attr.platform.aws.instance-type}"
   *    value     = "m4.xlarge"
   *  Example: only run on nodes where binaries are cached by utilizing node [metadata][meta]
-  *    attribute    = "${meta.cached_binaries}"
+  *    attribute    = "\$\{meta.cached_binaries}"
   *    set_contains = "redis,cypress,nginx"
   *
   * @param operator Specifies the comparison operator.The ordering is compared lexically. Possible values include: = != > >= < <= regexp set_contains version For a detailed explanation of these values and their behavior, please see the [operator values section](#operator-values).
