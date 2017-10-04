@@ -3,9 +3,7 @@ package com.jasonmar.nomad.model.task.driver
 import com.jasonmar.hcl.Parameter
 
 object Drivers {
-  sealed trait Driver extends Parameter {
-    override val parameterName: String = "driver"
-  }
+  sealed trait Driver extends Parameter { override val parameterName: String = "driver" }
 
   /**
     * The `java` driver is used to execute Java applications packaged into a Java Jar

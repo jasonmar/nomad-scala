@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.job
 
 import com.jasonmar.hcl.parameter.{BoolParam, SeqParam}
-import com.jasonmar.hcl.{HCLBuilder, Stanza}
+import com.jasonmar.hcl.{HCLBuilder, NamedStanza}
 import com.jasonmar.nomad.model.common.{KVPair, Meta}
 import com.jasonmar.nomad.model.constraint.Constraint
 import com.jasonmar.nomad.model.group.{Group, Periodic, Region}
@@ -43,7 +43,7 @@ case class Job(
   update: Option[Update] = None,
   vault: Option[Vault] = None,
   vault_token: Option[Token] = None
-) extends Stanza {
+) extends NamedStanza {
 
   require(datacenters.nonEmpty)
   require(groups.nonEmpty)

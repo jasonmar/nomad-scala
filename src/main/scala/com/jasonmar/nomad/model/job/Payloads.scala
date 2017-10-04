@@ -5,7 +5,7 @@ import com.jasonmar.hcl.Parameter
 
 object Payloads {
 
-  sealed trait Payload extends Parameter
+  sealed trait Payload extends Parameter { override val parameterName: String = "payload" }
 
   /**
     * A payload is optional when dispatching against the job.

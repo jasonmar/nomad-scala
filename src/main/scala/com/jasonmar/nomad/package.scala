@@ -4,7 +4,7 @@ import java.io.{File, FileOutputStream, OutputStreamWriter}
 import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Path, Paths}
 
-import com.jasonmar.nomad.model.task.Task
+import com.jasonmar.hcl.NamedStanza
 
 import scala.collection.JavaConverters.asScalaIteratorConverter
 import scala.util.{Failure, Try}
@@ -25,7 +25,7 @@ package object nomad {
               s.push(subdir)
             case file if Files.isRegularFile(file) =>
               val fileName = file.toFile.getName
-              if (fileName.endsWith(".hcl") || !fileName.startsWith(".")){
+              if (fileName.endsWith(".hcl") && !fileName.startsWith(".")){
                 b += file
               } else {
                 System.out.println(s"Ignoring $file")
@@ -54,7 +54,7 @@ package object nomad {
     }
   }
 
-  def printTask(task: Task, outPath: Path, overwrite: Boolean = false): Unit = {
+  def print(task: NamedStanza, outPath: Path, overwrite: Boolean = false): Unit = {
     val taskPath = outPath.resolve(task.name + ".hcl")
     val f = taskPath.toFile
     if (f.exists){
@@ -84,37 +84,39 @@ package object nomad {
       System.out.println(s"Removing files from $outPath")
       val files = listFiles(outPath)
       files.foreach{f =>
-        System.out.println(s"Deleting $f")
-        Files.delete(f)
+        if (f.toString.endsWith(".hcl")){
+          System.out.println(s"Deleting $f")
+          Files.delete(f)
+        }
       }
     }
   }
 
-  def printTasks(tasks: Seq[Task], outDir: String, overwrite: Boolean = false): Unit = {
+  def printSeq(tasks: Seq[NamedStanza], outDir: String, overwrite: Boolean = false): Unit = {
     val outPath = Paths.get(outDir)
     val f = outPath.toFile
     if (!f.exists) {
       System.out.println(s"Creating directory ${f.getAbsolutePath}")
       f.mkdirs()
     }
-    tasks.foreach(t => printTask(t, outPath, overwrite))
+    tasks.foreach(t => print(t, outPath, overwrite))
   }
 
-  def printTaskMap(tasks: Map[String,Seq[Task]], overwrite: Boolean = false): Unit = {
+  def printMap(tasks: Map[String,Seq[NamedStanza]], overwrite: Boolean = false): Unit = {
     tasks.foreach{x =>
       val (outPath,tasks) = x
-      printTasks(tasks, outPath, overwrite)
+      printSeq(tasks, outPath, overwrite)
     }
   }
 
-  protected trait TaskWriter {
+  protected trait HCLWriter {
     def write(baseDir: String, overWrite: Boolean = true): Unit
   }
 
-  protected trait TaskWriterApp extends TaskWriter {
+  protected trait HCLWriterApp extends HCLWriter {
     def main(args: Array[String]): Unit = {
       if (args.length == 0){
-        System.out.println("Usage: TaskWriter <baseDir> [--overwrite] [--clear]")
+        System.out.println("Usage: HCLWriterApp <baseDir> [--overwrite] [--clear]")
         sys.exit(1)
       }
       val baseDir = args.headOption.getOrElse(".")
@@ -140,11 +142,11 @@ package object nomad {
     }
   }
 
-  trait TaskInventory extends TaskWriterApp {
-    val tasks: Seq[Task]
+  trait HCLInventory extends HCLWriterApp {
+    val tasks: Seq[NamedStanza]
     val outDir: String
     override def write(baseDir: String, overWrite: Boolean = false): Unit = {
-      printTasks(
+      printSeq(
         tasks,
         Paths.get(baseDir).resolve(outDir).toFile.getAbsolutePath,
         overWrite
@@ -152,8 +154,8 @@ package object nomad {
     }
   }
 
-  trait GlobalInventory extends TaskWriterApp {
-    val inventories: Seq[TaskInventory]
+  trait HCLInventories extends HCLWriterApp {
+    val inventories: Seq[HCLInventory]
     override def write(baseDir: String, overWrite: Boolean = true): Unit = {
       inventories.foreach(_.write(baseDir, overWrite))
     }

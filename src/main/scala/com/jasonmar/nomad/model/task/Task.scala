@@ -50,7 +50,7 @@ case class Task(
   user: Option[User] = None,
   template: Option[Seq[Template]] = None,
   vault: Option[Vault] = None
-) extends Stanza {
+) extends NamedStanza {
   require(name.nonEmpty)
 
   override def printHCL: String = {

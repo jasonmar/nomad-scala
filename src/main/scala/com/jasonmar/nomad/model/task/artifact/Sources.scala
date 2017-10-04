@@ -4,7 +4,7 @@ import com.jasonmar.hcl.Parameter
 
 
 object Sources {
-  sealed trait Source extends Parameter
+  sealed trait Source extends Parameter { override val parameterName: String = "source" }
   case class Http(host: String, path: String) extends Source {
     override val value: String = s"http://$host$path"
   }

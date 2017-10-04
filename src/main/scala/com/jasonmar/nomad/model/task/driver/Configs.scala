@@ -63,7 +63,7 @@ object Configs {
     override def printHCL: String = {
       val hcl = new HCLBuilder()
       hcl.open(stanza)
-      hcl.maybeAppend(mainClass.map(StringParam("main_class", _)))
+      hcl.maybeAppend(mainClass.map(StringParam("class", _)))
       hcl.maybeAppend(classPath.map(StringParam("class_path", _)))
       hcl.maybeAppend(jarPath.map(p => StringParam("jar_path", p.value)))
       hcl.maybeAppend(args.map(Args))

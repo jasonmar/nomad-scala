@@ -1,3 +1,5 @@
+# Nomad-Scala
+
 ## Description
 
 Scala DSL for Hashicorp Nomad HCL configuration
@@ -19,82 +21,48 @@ Type-safe construction of Nomad job definitions
 ## Instructions
 
 * Define Task instances as vals in singleton objects
-* Create singleton object inheriting TaskInventory trait for each desired subdirectory of hcl files
+* Create singleton object inheriting HCLInventory trait for each desired subdirectory of hcl files
 * Create singleton object inheriting GlobalInventory trait for each collection of hcl files that needs to be printed to a common top-level directory as a complete unit
 * Run your GlobalInventory as a main class
 
-### Printing hcl using sbt
 
-#### Safe mode
-Won't overwrite existing hcl files
-```
-sbt "run-main mi.taskdef.Inventory /path/to/tasks"
-```
-
-#### Clear all existing hcl files from directory  
-Useful for managing all hcl within your Scala project
-Target path will typically be a directory with git repository
-```
-sbt "run-main mi.taskdef.Inventory /path/to/tasks --clear"
-```
-
-#### Overwrite hcl files if they already exist
-```
-sbt "run-main mi.taskdef.Inventory /path/to/tasks --overwrite"
-```  
-
-
-### Example GlobalInventory
+### Example HCLInventories
 
 ```
-import com.jasonmar.nomad.{GlobalInventory, TaskInventory}
+import com.jasonmar.nomad.{HCLInventories, HCLInventory}
 
-object Inventory extends GlobalInventory {
-  override val inventories: Seq[TaskInventory] = Seq(
+object Inventory extends HCLInventories {
+  override val inventories: Seq[HCLInventory] = Seq(
     Production.Services,
-    Production.Tasks,
-    Research.Services,
-    Research.Tasks
+    Production.Scheduled
   )
 }
 ```
 
-### Example TaskInventory
+
+### Example HCLInventory
 
 ```
-import com.jasonmar.nomad.model.task.Task
-import com.jasonmar.nomad.TaskInventory
-import prod.ScheduledTasks
-import prod.ServiceTasks
+import com.jasonmar.hcl.NamedStanza
+import com.jasonmar.nomad.HCLInventory
 
 object Production {
-  object Services extends TaskInventory {
+  object Services extends HCLInventory {
     override val outDir = "prod/services"
-    override val tasks: Seq[Task] = Seq(
-      ServiceTasks.vault,
-      ServiceTasks.consul,
-      ServiceTasks.statsite,
+    override val tasks: Seq[NamedStanza] = Seq(
+      Job(...),
+      ...
     )
   }
 
-  object Tasks extends TaskInventory {
-    override val outDir = "prod/tasks"
-    override val tasks: Seq[Task] = Seq(
-      ScheduledTasks.broker,
-      ScheduledTasks.logShip,
-      ScheduledTasks.publisher,
-      ScheduledTasks.subscriber
+  object Scheduled extends HCLInventory {
+    override val outDir = "prod/scheduled"
+    override val tasks: Seq[NamedStanza] = Seq(
+      Job(...),
+      ...
     )
   }
 }
-```
-
-
-## Publishing
-
-```
-sbt compile
-sbt publish-local
 ```
 
 
@@ -136,6 +104,38 @@ val hcl: String = j.printHCL
 ```
 
 
+
+## Generating hcl
+
+### Set Inventory as main class in build.sbt
+
+This enables sbt run without specifying main class
+
+```
+mainClass in (Compile, run) := Some("Inventory")
+```
+
+### Modes of operation
+
+#### Default: Clear all existing hcl files from directory  
+Useful for managing all hcl within your Scala project
+Target path will typically be a directory with git repository
+```
+sbt "run /path/to/tasks --clear"
+```
+
+#### Overwrite: removes hcl files that already exist
+```
+sbt "run /path/to/tasks --overwrite"
+```  
+
+#### Safe mode: throws exception if hcl files already exist
+```
+sbt "run /path/to/tasks"
+```
+
+
+
 ## Running jobs
 
 ```
@@ -151,6 +151,11 @@ nomad logs -tail -f -job <job-id>
 ```
 nomad stop -yes -detach <job>
 ```
+
+
+## Links
+
+[Nomad Job Specification](https://www.nomadproject.io/docs/job-specification/index.html)
 
 
 ## Authors and Copyright

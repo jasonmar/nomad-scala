@@ -1,7 +1,7 @@
 package com.jasonmar.nomad.model.service
 
 import com.jasonmar.hcl.parameter.{BoolParam, StringParam}
-import com.jasonmar.hcl.{HCLBuilder, _}
+import com.jasonmar.hcl._
 import com.jasonmar.nomad.model.common.Args
 import com.jasonmar.nomad.model.common.Durations.Duration
 import com.jasonmar.nomad.model.service.CheckTypes.{CheckType, HTTP, Script, TCP}
@@ -54,6 +54,7 @@ object Checks {
     override def printHCL: String = {
       val hcl = new HCLBuilder()
       hcl.open(stanza)
+      hcl.append(checkType)
       hcl.append(StringParam("command", command))
       hcl.append(Args(args))
       hcl.append(initialStatus)
@@ -94,6 +95,7 @@ object Checks {
     override def printHCL: String = {
       val hcl = new HCLBuilder()
       hcl.open(stanza)
+      hcl.append(checkType)
       hcl.append(port)
       hcl.append(initialStatus)
       hcl.append(StringParam("interval", interval.value))
@@ -149,6 +151,7 @@ object Checks {
     override def printHCL: String = {
       val hcl = new HCLBuilder()
       hcl.open(stanza)
+      hcl.append(checkType)
       hcl.append(StringParam("path", path))
       hcl.append(port)
       hcl.append(initialStatus)
