@@ -141,7 +141,7 @@ sbt "run /path/to/tasks"
 ```
 nomad validate /path/to/job.hcl
 nomad plan /path/to/job.hcl
-nomad run /path/to/job.hcl
+nomad run [-check-index <i>] /path/to/job.hcl
 nomad status
 nomad logs -tail -f -job <job-id>
 ```
@@ -151,6 +151,16 @@ nomad logs -tail -f -job <job-id>
 ```
 nomad stop -yes -detach <job>
 ```
+
+### Deleting a job
+
+Changing a job from service to batch requires purging the job
+
+```
+curl -X DELETE http://<nomad_ip>:4646/v1/job/<job_name>?purge=true
+```
+
+Verify the job is purged by running `nomad status`
 
 
 ## Links
