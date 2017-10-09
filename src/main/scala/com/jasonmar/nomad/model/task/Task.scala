@@ -8,6 +8,7 @@ import com.jasonmar.nomad.model.constraint.Constraint
 import com.jasonmar.nomad.model.service.{Service, User}
 import com.jasonmar.nomad.model.task.artifact.Artifact
 import com.jasonmar.nomad.model.task.driver.Configs.DriverConfig
+import com.jasonmar.nomad.model.task.driver.Drivers
 import com.jasonmar.nomad.model.task.driver.Drivers.Driver
 import com.jasonmar.nomad.model.task.resources.Resources
 import com.jasonmar.nomad.model.task.template.Templates.Template
@@ -52,6 +53,7 @@ case class Task(
   vault: Option[Vault] = None
 ) extends NamedStanza {
   require(name.nonEmpty)
+  if (driver == Drivers.RawExec) require(user.isEmpty, "Fork/Join not allowed with raw_exec")
 
   override def printHCL: String = {
     val hcl = new HCLBuilder()
